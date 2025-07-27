@@ -1,0 +1,2 @@
+# Ignore database config file
+nanomvc/myapp/configs/config_database.php
