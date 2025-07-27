@@ -27,7 +27,7 @@
   function index() {
     $this->load->library('demo', 'mydemo');
     $this->view->assign('output', $this->mydemo->test());
-    $this->view->display('hello_view');
+    $this->view->display(&#8203;'hello_view');
   }
 }</code></pre>
 <p>The second argument to <code>load-&gt;library()</code> is an alias for the class instance. If not provided, the original name is used.</p>
@@ -51,7 +51,7 @@ function anchor($url, $text) {
 <pre><code>class Hello_Controller extends NanoMVC_Controller {
   function index() {
     $this->load->script('myhelpers');
-    $this->view->display('hello_view');
+    $this->view->display(&#8203;'hello_view');
   }
 }</code></pre>
 
@@ -65,7 +65,7 @@ function anchor($url, $text) {
 }</code></pre>
 <p>Then use it as follows after loading the script:</p>
 <pre><code>// Call statically
-echo NanoMVC_Script_Helper::esc('&lt;div&gt;test&lt;/div&gt;');
+echo NanoMVC_Script_Helper::esc(&#8203;'&lt;div&gt;test&lt;/div&gt;');
 
 // Or as an instance (for brevity)
 $dh = new NanoMVC_Script_Helper();

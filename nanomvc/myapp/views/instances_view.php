@@ -19,7 +19,7 @@ Once you have the instance, you can use it to work with views, configuration, an
 $myvars['foo'] = 'bar';
 $myvars['baz'] = 'gaz';
 
-$output = $nmvc->controller->view->fetch('some_view', $myvars);</code></pre>
+$output = $nmvc->controller->view->fetch(&#8203;'some_view', $myvars);</code></pre>
 
 <h2>Available Properties</h2>
 <p>The <code>nmvc::instance()</code> object exposes several helpful properties:</p>

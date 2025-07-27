@@ -45,7 +45,7 @@ class Hello_Controller extends NanoMVC_Controller {
 
     // Use Smarty for rendering
     $this->smarty->assign('foo', 'bar');
-    $this->smarty->display('hello_view.tpl');
+    $this->smarty->display(&#8203;'hello_view.tpl');
   }
 }
 </code></pre>
@@ -81,9 +81,9 @@ class NanoMVC_Library_Smarty_Wrapper extends Smarty {
 
 class Hello_Controller extends NanoMVC_Controller {
   function index() {
-    $this->load->library('Smarty_Wrapper', 'smarty');
+    $this->load->library(&#8203;'Smarty_Wrapper', 'smarty');
     $this->smarty->assign('foo', 'bar');
-    $this->smarty->display('hello_view.tpl');
+    $this->smarty->display(&#8203;'hello_view.tpl');
   }
 }
 </code></pre>

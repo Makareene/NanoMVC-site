@@ -102,7 +102,7 @@ You can call:</p>
 <pre><code>class User_Controller extends NanoMVC_Controller {
   function profile() {
     $this->_log_access(); // call internal helper
-    $this->view->display('user_profile_view'); // show the view
+    $this->view->display(&#8203;'user_profile_view'); // show the view
   }
 
   function _log_access() {

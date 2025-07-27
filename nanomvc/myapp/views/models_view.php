@@ -34,7 +34,7 @@
 
     $this->view->assign('title', $title);
     $this->view->assign('body_text', $body_text);
-    $this->view->display('hello_view');
+    $this->view->display(&#8203;'hello_view');
   }
 }</code></pre>
 <p>By default, the model will use the <code>default</code> pool from the database configuration. You may load from a specific connection pool like this:</p>
@@ -73,7 +73,7 @@
   $this->db->in('my.column', ['any1', 'any2'], false); // add a WHERE IN clause with values quoted safely using PDO
   $this->db->orin('my.other_column', 'val1, val2', true); // add an OR IN clause with raw values — only use if you're sure inputs are safe
   $this->db->orderby('my.ordercolumn, j.ordercolumn desc'); // add ORDER BY clause to sort the results
-  $this->db->groupby('my.groupbycolumn'); // add GROUP BY clause to group the results
+  $this->db->groupby(&#8203;'my.groupbycolumn'); // add GROUP BY clause to group the results
   $this->db->limit(20, 0); // limit the result to 20 rows starting from offset 0
   $this->db->query(); // execute the assembled query
   while($row = $this->db->next()) $rows[] = $row;
