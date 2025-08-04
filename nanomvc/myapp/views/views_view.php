@@ -83,5 +83,3 @@ $data['body_text'] = 'Hello world.';
 $this->view->display('hello_view', $data);</code></pre>
 
 <p><strong>Note:</strong> This example uses static text for simplicity. In real applications, content should come from models, config files, or libraries. Avoid embedding content directly in controllers or models to maintain proper MVC architecture.</p>
-
-<p><a href="/doc/controllers" class="btn-download">&larr; Return to Controllers</a> <a href="/doc/models" class="btn-download">Continue to Models &rarr;</a></p>

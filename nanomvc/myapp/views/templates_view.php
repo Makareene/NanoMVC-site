@@ -102,5 +102,3 @@ $config['libraries'] = ['Smarty_Wrapper'];
 This allows you to access Smarty in any controller without having to load it manually.
 See the <a href="/doc/autoload">Autoloading documentation</a> for more details.
 </p>
-
-<p><a href="/doc/instances" class="btn-download">&larr; Return to Getting an Instance</a> <a href="/doc/errors" class="btn-download">Continue to Custom Error Handler &rarr;</a></p>

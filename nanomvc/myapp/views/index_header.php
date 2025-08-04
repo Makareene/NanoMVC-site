@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title><?=$title?></title>
-    <meta name="description" content="<?=$description?>">
+    <meta name="description" content="<?=($description ?? '')?>">
   </head>
   <body>
     <header>

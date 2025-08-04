@@ -34,5 +34,3 @@ $output = $nmvc->controller->view->fetch(&#8203;'some_view', $myvars);</code></p
 <p>
 These allow you to interact with the runtime context of the application, even when you're outside the main controller scope.
 </p>
-
-<p><a href="/doc/autoload" class="btn-download">&larr; Return to Autoloading Plugins</a> <a href="/doc/templates" class="btn-download">Continue to Integrating a Template Engine &rarr;</a></p>

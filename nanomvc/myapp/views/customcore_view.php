@@ -29,5 +29,3 @@ With these changes, you will be able to customize everything you want using PHP 
 You will still be able to receive NanoMVC updates, because all core logic is handled in <code>NanoMVCCore.php</code>,
 which is not affected by your custom <code>NanoMVC.php</code>.
 </p>
-
-<p><a href="/doc/errors" class="btn-download">&larr; Return to Custom Error Handler</a></p>

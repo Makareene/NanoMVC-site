@@ -14,21 +14,16 @@
       Explore the following topics:
       </p>
 
+      <?php if($articles):?>
       <ul class="doc-list">
-        <li><a href="doc/overview">Overview</a></li>
-        <li><a href="doc/installation">Installation</a></li>
-        <li><a href="doc/controllers">Controllers</a></li>
-        <li><a href="doc/views">Views</a></li>
-        <li><a href="doc/models">Models</a></li>
-        <li><a href="doc/plugins">Plugins</a></li>
-        <li><a href="doc/customdb">Custom Database Plugin</a></li>
-        <li><a href="doc/extending">Extending NanoMVC Classes</a></li>
-        <li><a href="doc/autoload">Autoloading Plugins</a></li>
-        <li><a href="doc/instances">Getting an Instance</a></li>
-        <li><a href="doc/templates">Integrating a Template Engine</a></li>
-        <li><a href="doc/errors">Custom Error Handler</a></li>
-        <li><a href="doc/customcore">Customize Core</a></li>
+        <?php foreach($articles as $article):?>
+        <li>
+          <a href="<?=$article['_link']?>"><?=$article['name']?></a>
+          <p class="doc-desc"><?=$article['description']?></p>
+        </li>
+        <?php endforeach?>
       </ul>
+      <?php endif?>
 
       <p>
       Use the links above or scroll to read more. Whether you're new to MVC frameworks or transitioning from TinyMVC, this guide is your starting point.

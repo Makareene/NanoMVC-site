@@ -168,5 +168,3 @@ $config['routing']['replace'] = [
 </ul>
 
 <p>Keep in mind that the resulting rewritten URL must point to a valid controller and method in your application.</p>
-
-<p><a href="/doc/installation" class="btn-download">&larr; Return to Installation</a> <a href="/doc/views" class="btn-download">Continue to Views &rarr;</a></p>

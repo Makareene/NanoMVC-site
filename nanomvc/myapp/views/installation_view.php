@@ -58,11 +58,16 @@ if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
 // Uncomment and set if the /nanomvc/ dir is not one level above this file
 // define('NMVC_BASEDIR', dirname(__FILE__) . DS . '..' . DS . 'nanomvc' . DS);
 </code></pre>
+
 <ul>
   <li>Change <code>error_reporting(E_ALL);</code> to <code>error_reporting(0);</code> and <code>ini_set('display_errors', '1');</code> to <code>ini_set('display_errors', '0');</code> to hide all errors (typically for a production environment).</li>
   <li>Set the correct <code>NMVC_BASEDIR</code> path if necessary</li>
   <li>Always include a trailing slash (<code>DS</code>)</li>
 </ul>
+
+<p>
+If you define <code>NMVC_ERROR_HANDLING</code> and set it to <code>1</code>, NanoMVC will use its internal error and exception handlers. If you omit this or set it to <code>0</code>, PHP's default handlers will be used instead. This is useful for debugging during development.
+</p>
 
 <p>
 After saving, open <code>http://localhost/index.php</code> in your browser. If you don’t see the welcome screen, recheck your paths and error messages.
@@ -149,5 +154,3 @@ If you use Git to get updates — which is a good idea compared to updating manu
   The only file that may be updated occasionally is <code>nanomvc/myfiles/plugins/README</code>.
   </li>
 </ul>
-
-<p><a href="/doc/overview" class="btn-download">&larr; Return to Overview</a> <a href="/doc/controllers" class="btn-download">Continue to Controllers &rarr;</a></p>

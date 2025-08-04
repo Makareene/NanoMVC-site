@@ -33,5 +33,3 @@ class Hello_Controller extends My_Controller {
 </ul>
 
 <p>You can then use your extended versions in your application wherever needed.</p>
-
-<p><a href="/doc/customdb" class="btn-download">&larr; Return to Custom Database Plugin</a> <a href="/doc/autoload" class="btn-download">Continue to Autoloading Plugins &rarr;</a></p>

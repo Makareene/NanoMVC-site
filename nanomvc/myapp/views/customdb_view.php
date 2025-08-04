@@ -30,5 +30,3 @@
 </ol>
 
 <p><strong>Result:</strong> NanoMVC will now load your custom database class <code>NanoMVC_MYDB</code> automatically on each request, inheriting the base functionality of <code>NanoMVC_PDO</code>.</p>
-
-<p><a href="/doc/plugins" class="btn-download">&larr; Return to Plugins</a> <a href="/doc/extending" class="btn-download">Continue to Extending NanoMVC Classes &rarr;</a></p>

@@ -40,5 +40,3 @@ This folder is used in shared installations. If you run multiple NanoMVC-based p
 <p>
 This directory contains the NanoMVC core system files. You typically won’t need to touch these. When updating NanoMVC to a newer version, only this directory should be replaced.
 </p>
-
-<p><a href="/doc/installation" class="btn-download">Continue to Installation &rarr;</a></p>

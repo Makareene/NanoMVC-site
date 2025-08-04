@@ -40,5 +40,3 @@
 }</code></pre>
 
 <p>Then simply extend <code>My_Controller</code> in your controllers instead of <code>NanoMVC_Controller</code>. For instructions on extending controllers, see the <a href="/doc/extending">Extending NanoMVC Classes</a> documentation.</p>
-
-<p><a href="/doc/extending" class="btn-download">&larr; Return to Extending NanoMVC Classes</a> <a href="/doc/instances" class="btn-download">Continue to Getting an Instance &rarr;</a></p>

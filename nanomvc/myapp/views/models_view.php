@@ -137,5 +137,3 @@ $config['default']['dsn']        = ''; // overrides all dsn settings inside</cod
 <p>You may define multiple pools: <code>$config['default']</code>, <code>$config['mypool']</code>, etc.</p>
 
 <p><strong>Note:</strong> The <code>NanoMVC_PDO</code> plugin is officially tested with <code>MySQL</code> and <code>PostgreSQL</code>. Other PDO-supported drivers (like <code>sqlite</code>, <code>sqlsrv</code>, etc.) may work but are not guaranteed or supported by default.</p>
-
-<p><a href="/doc/views" class="btn-download">&larr; Return to Views</a> <a href="/doc/plugins" class="btn-download">Continue to Plugins &rarr;</a></p>

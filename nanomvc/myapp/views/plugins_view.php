@@ -58,19 +58,17 @@ function anchor($url, $text) {
 <p>All functions defined in the script become globally available to views and controllers after loading.</p>
 
 <p>Optionally, you may use static classes instead of global functions. For example:</p>
-<pre><code>class NanoMVC_Script_Helper {
+<pre><code>class NanoMVC_Script_MyHelper {
   public static function esc($str) {
     return htmlentities($str);
   }
 }</code></pre>
 <p>Then use it as follows after loading the script:</p>
 <pre><code>// Call statically
-echo NanoMVC_Script_Helper::esc(&#8203;'&lt;div&gt;test&lt;/div&gt;');
+echo NanoMVC_Script_MyHelper::esc(&#8203;'&lt;div&gt;test&lt;/div&gt;');
 
 // Or as an instance (for brevity)
-$dh = new NanoMVC_Script_Helper();
+$dh = new NanoMVC_Script_MyHelper();
 echo $dh::esc('&lt;div&gt;test&lt;/div&gt;');</code></pre>
 
 <p>Libraries and scripts can optionally be autoloaded. See the <a href="/doc/autoload">Autoloading plugins</a> for more details.</p>
-
-<p><a href="/doc/models" class="btn-download">&larr; Return to Models</a> <a href="/doc/customdb" class="btn-download">Continue to Custom Database Plugin &rarr;</a></p>
