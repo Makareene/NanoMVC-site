@@ -18,8 +18,8 @@
       <ul class="doc-list">
         <?php foreach($articles as $article):?>
         <li>
-          <a href="<?=$article['_link']?>"><?=$article['name']?></a>
-          <p class="doc-desc"><?=$article['description']?></p>
+          <a href="<?=$dh::esc_html($article['_link'])?>"><?=$dh::esc_html($article['name'])?></a>
+          <p class="doc-desc"><?=$dh::esc_html($article['description'])?></p>
         </li>
         <?php endforeach?>
       </ul>

@@ -1,13 +1,12 @@
-<h1>Database</h1>
+<h1>Custom Database Plugin</h1>
 
-<h2>Custom Database Plugin</h2>
 <p>If you want to use a custom database plugin instead of the built-in PDO-based one, follow these steps:</p>
 
 <ol>
   <li>
     <strong>Create a new plugin file</strong><br>
     Create a new file in:<br>
-    <code>/myapp/plugins/nanomvc_mydb.php</code> or <code>/myfiles/plugins/nanomvc_mydb.php</code>
+    <code>/myapp/plugins/nanomvc_mydb.php</code> or <code>/myfiles/plugins/&#8203;nanomvc_mydb.php</code>
   </li>
   <li>
     <strong>Extend the PDO plugin</strong><br>
@@ -23,7 +22,7 @@
   <li>
     <strong>Update the config</strong><br>
     Open your database configuration:<br>
-    <code>/myapp/configs/config_database.php</code><br>
+    <code>/myapp/configs/&#8203;config_database.php</code><br>
     and change the plugin name:<br>
     <pre><code>$config['yourpool']['plugin'] = 'NanoMVC_MYDB';</code></pre>
   </li>

@@ -28,8 +28,8 @@
     <h3>🧩 Add NanoMVC to your site</h3>
     <p>If you'd like to support NanoMVC, feel free to place this banner on your website:</p>
     <img src="/banner.webp" alt="NanoMVC framework" width="88" height="31" loading="lazy">
-    <pre><code>&lt;a href="https://nanomvc.nipaa.fyi" rel="nofollow"&gt;
-  &lt;img src="https://nanomvc.nipaa.fyi/banner.webp" width="88" height="31" alt="NanoMVC framework"&gt;
+    <pre><code>&lt;a href="https://nanomvc&#8203;.nipaa.fyi" rel="nofollow"&gt;
+  &lt;img src="https://nanomvc&#8203;.nipaa.fyi/banner.webp" width="88" height="31" alt="NanoMVC framework"&gt;
 &lt;/a&gt;</code></pre>
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 

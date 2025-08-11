@@ -1,6 +1,4 @@
-<h1>Autoload</h1>
-
-<h2>Autoloading Plugins</h2>
+<h1>Autoloading Plugins</h1>
 <p>Instead of calling <code>$this->load->library()</code> and <code>$this->load->script()</code> in each controller, you can autoload them so they're always available to every controller by default.</p>
 
 <h3>Configuration</h3>

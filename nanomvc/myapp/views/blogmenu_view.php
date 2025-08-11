@@ -1,7 +1,7 @@
 <h1>Plugin: BlogMenu</h1>
 
 <p>
-The <code>blogmenu</code> plugin is an utility library designed to extract blog categories (controllers) and blog articles (controller methods) from your NanoMVC application. It uses structured metadata comments in both controllers and their methods.
+The <code>blogmenu</code> plugin is a utility library designed to extract blog categories (controllers) and blog articles (controller methods) from your NanoMVC application. It uses structured metadata comments in both controllers and their methods.
 </p>
 
 <h2>How to Use</h2>
@@ -59,18 +59,25 @@ Scans controller files and returns an array of categories (controllers) with par
   <li><code>$order</code> – Sorting order by any metadata field (default: newest first)</li>
 </ul>
 
-<h3><code>get_articles(&#8203;?string $action = null, string $order = 'created desc')</code></h3>
+<h3><code>get_articles(&#8203;?string $action = null, string $order = 'created desc', ?string $controller_name = null, ?string $act = null)</code></h3>
 
 <p>
-Scans the methods of the current controller and returns all articles with their metadata.
+Scans the methods of the current or another controller and returns all articles with their metadata.
 </p>
 
 <ul>
   <li><code>$action</code> – Optional: limit to a specific method</li>
   <li><code>$order</code> – Sorting order (default: <code>created desc</code>)</li>
+  <li><code>$controller_name</code> – Optional: name of another controller to load</li>
+  <li><code>$act</code> – Optional: action name to pass when instantiating another controller</li>
 </ul>
 
-<h3>Get next and previous article: <code>get_nav(array &$items, string $current): array</code></h3>
+<p>
+If <code>$controller_name</code> is provided, BlogMenu will try to load that controller from either the <code>myapp</code> or <code>myfiles</code> paths.
+If not found, an exception will be thrown. When loaded, the controller will be instantiated with the given controller and action names, allowing metadata extraction from another controller's articles.
+</p>
+
+<h3>Get next and previous article: <code>get_nav(array &amp;$items, string $current): array</code></h3>
 
 <p>
 Returns <code>pre</code> and <code>next</code> items relative to the current article key.
@@ -85,6 +92,23 @@ Returns <code>pre</code> and <code>next</code> items relative to the current art
   'pre' => [ ... ],  // previous article or empty array
   'next' => [ ... ]  // next article or empty array
 ]</code></pre>
+
+<h3><code>pagination(array &amp;$items, int $limit = 1): int|bool</code></h3>
+
+<p>
+Splits the list of articles into pages and adds a <code>_page</code> index to each article.
+</p>
+
+<ul>
+  <li><code>$items</code> – The array returned by <code>get_articles()</code></li>
+  <li><code>$limit</code> – Number of articles per page (must be positive)</li>
+  <li><strong>Returns:</strong> Total number of pages, or <code>false</code> if <code>$limit</code> is 0</li>
+</ul>
+
+<p>
+Each article in <code>$items</code> gets a <code>_page</code> key with its page number.
+Example: if limit is 3 and you have 8 articles, they will be marked with pages 1, 1, 1, 2, 2, 2, 3, 3.
+</p>
 
 <h2>Validation</h2>
 

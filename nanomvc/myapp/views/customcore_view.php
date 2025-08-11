@@ -1,4 +1,4 @@
-<h2>Customize Core</h2>
+<h1>Customize Core</h1>
 
 <p>
 If you want to customize the core of NanoMVC, you should copy

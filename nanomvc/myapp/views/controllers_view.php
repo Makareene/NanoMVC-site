@@ -4,10 +4,10 @@
 <p>Controller files are what glue the application together. They load models, display views, and tie in the plugins and application library code. They are the content traffic cops, so to speak.</p>
 
 <p>A typical URL to a NanoMVC page looks like this:</p>
-<pre><code>http://[host]/index.php/[controller]/[action]/[param1]/[param2]/[param3...]</code></pre>
+<pre><code>http://[host]/&#8203;index.php/&#8203;[controller]/&#8203;[action]/[param1]/&#8203;[param2]/[param3...]</code></pre>
 <p>Where the <code>[controller]</code> is the name of the controller file/class, and <code>[action]</code> is the method name you want to access. Additional values are used as parameters.</p>
 <p>Example:</p>
-<pre><code>http://localhost/index.php/hello/intro/name/joe</code></pre>
+<pre><code>http://localhost/&#8203;index.php/hello/&#8203;intro/name/joe</code></pre>
 
 <h2>Learning by example</h2>
 <p>Controller files live in the <code>/myapp/controllers/</code> directory. Let's create a controller:</p>
@@ -50,7 +50,7 @@
 }</code></pre>
 
 <p>Then access it via:</p>
-<pre><code>http://localhost/index.php/hello/time</code></pre>
+<pre><code>http://localhost/&#8203;index.php/hello/time</code></pre>
 <p>As you can see, appending the method name executes the corresponding method.</p>
 <p>If no method is given, the default <code>index</code> method is used.</p>
 

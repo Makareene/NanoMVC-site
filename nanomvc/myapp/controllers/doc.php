@@ -18,33 +18,33 @@ class Doc_Controller extends NanoMVC_Controller {
   private array $nav_article;
   public NanoMVC_Library_URI $uri;
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct(?string $controller_name = null, ?string $action = null) {
+    parent::__construct($controller_name, $action);
+    $this->footer = [
+      'controller' => ucfirst(strtolower($this->_get_controller())),
+      'method'     => strtolower($this->_get_action())
+    ];
     $this->load->library('BlogMenu', 'menu');
     $this->load->script('helper');
     $this->dh = new NanoMVC_Script_Helper();
   }
 
   private function _get_preparticle(string $title): array {
-    $this->footer = [
-      'controller' => ucfirst(strtolower($this->_get_controller())),
-      'method'     => strtolower($this->_get_action())
-    ];
-    $ar_header = ['title' => $this->dh->esc_html($title)];
+    $ar_header = ['title' => $this->dh::esc_html($title)];
     $action = $this->footer['method'];
     $articles = $this->menu->get_articles(null, 'created asc');
 
     $this->footer['nav'] = $this->menu->get_nav($articles, $action);
     if ($this->footer['nav']['pre']) {
-      $this->footer['nav']['pre']['name'] = $this->dh->esc_html($this->footer['nav']['pre']['name']);
-      $this->footer['nav']['pre']['_link'] = $this->dh->esc_html($this->footer['nav']['pre']['_link']);
+      $this->footer['nav']['pre']['name'] = $this->dh::esc_html($this->footer['nav']['pre']['name']);
+      $this->footer['nav']['pre']['_link'] = $this->dh::esc_html($this->footer['nav']['pre']['_link']);
     }
     if ($this->footer['nav']['next']) {
-      $this->footer['nav']['next']['name'] = $this->dh->esc_html($this->footer['nav']['next']['name']);
-      $this->footer['nav']['next']['_link'] = $this->dh->esc_html($this->footer['nav']['next']['_link']);
+      $this->footer['nav']['next']['name'] = $this->dh::esc_html($this->footer['nav']['next']['name']);
+      $this->footer['nav']['next']['_link'] = $this->dh::esc_html($this->footer['nav']['next']['_link']);
     }
 
-    if (isset($articles[$action]['description'])) $ar_header['description'] = $this->dh->esc_html($articles[$action]['description']);
+    if (isset($articles[$action]['description'])) $ar_header['description'] = $this->dh::esc_html($articles[$action]['description']);
 
     return $ar_header;
   }
@@ -53,23 +53,16 @@ class Doc_Controller extends NanoMVC_Controller {
     $this->load->library('URI', 'uri');
     if ($this->uri->segment(2) !== false) throw new Exception('The default action does not accept any additional parameters.', 404);
 
-    $ar_header = ['title' => $this->dh->esc_html('NanoMVC – Minimalist MVC Framework Documentation'),
-                  'description' => $this->dh->esc_html('Explore the official NanoMVC documentation. Learn how to install, configure, and use this minimalist PHP MVC framework.')
+    $ar_header = ['title' => $this->dh::esc_html('NanoMVC – Minimalist MVC Framework Documentation'),
+                  'description' => $this->dh::esc_html('Explore the official NanoMVC documentation. Learn how to install, configure, and use this minimalist PHP MVC framework.')
                  ];
 
     $articles = $this->menu->get_articles(null, 'created asc');
 
-    foreach ($articles as &$article) {
-      $article['name'] = $this->dh->esc_html($article['name']);
-      $article['description'] = $this->dh->esc_html($article['description']);
-      $article['_link'] = $this->dh->esc_html($article['_link']);
-    }
-    unset($article);
-
     // $this->dh->debug($articles, 'Articles', false, false, true);
 
     $this->view->display('index_header', $ar_header);
-    $this->view->display('doc_view', ['articles' => $articles]);
+    $this->view->display('doc_view', ['articles' => $articles, 'dh' => $this->dh]);
     $this->view->display('index_footer');
   }
 
@@ -295,6 +288,21 @@ class Doc_Controller extends NanoMVC_Controller {
 
     $this->view->display('index_header', $ar_header);
     $this->view->display('usefulplugins_view');
+    $this->view->display('index_footer', $this->footer);
+  }
+
+  /**
+   * @blog {
+   *   "name": "Examples",
+   *   "description": "Explore public NanoMVC projects including the official documentation site and a developer's blog. Learn how to use NanoMVC through real-world examples.",
+   *   "created": "2025-08-11 11:00"
+   * }
+   */
+  public function examples(): void {
+    $ar_header = $this->_get_preparticle('NanoMVC - Examples');
+
+    $this->view->display('index_header', $ar_header);
+    $this->view->display('examples_view');
     $this->view->display('index_footer', $this->footer);
   }
 

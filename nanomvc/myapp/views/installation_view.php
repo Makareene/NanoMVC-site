@@ -75,7 +75,7 @@ After saving, open <code>http://localhost/index.php</code> in your browser. If y
 
 <h2>Database Settings</h2>
 <p>If your application uses a database, edit:</p>
-<pre><code>/nanomvc/myapp/configs/config_database.php</code></pre>
+<pre><code>/nanomvc/myapp/configs/&#8203;config_database.php</code></pre>
 
 <p>Example configuration:</p>
 <pre><code>$config['default']['plugin']     = 'NanoMVC_PDO';

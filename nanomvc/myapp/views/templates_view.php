@@ -1,6 +1,4 @@
-<h1>Templates</h1>
-
-<h2>Integrating a Template Engine</h2>
+<h1>Integrating a Template Engine</h1>
 <p>
 NanoMVC does not require a template engine, but you may prefer to use one for more advanced presentation logic.
 In this example, we'll integrate <a href="https://github.com/smarty-php/smarty" target="_blank" rel="nofollow">Smarty</a> as a view layer.
@@ -23,7 +21,7 @@ Make sure Smarty is installed and working correctly. In this example, the direct
 
 <p>Create a controller using Smarty directly:</p>
 
-<pre><code>/myapp/controllers/hello.php
+<pre><code>/myapp/controllers/&#8203;hello.php
 
 class Hello_Controller extends NanoMVC_Controller {
   public $smarty;
@@ -32,16 +30,16 @@ class Hello_Controller extends NanoMVC_Controller {
     define('SMARTY_SPL_AUTOLOAD', 1);
 
     // Load Smarty manually
-    require('/var/smarty/libs/Smarty.class.php');
+    require('/var/smarty/&#8203;libs/Smarty.class.php');
 
     // Load as a plugin
-    $this->load->library('Smarty', 'smarty');
+    $this->load->library(&#8203;'Smarty', 'smarty');
 
     // Configure Smarty
-    $this->smarty->setTemplateDir('/var/smarty/templates/');
-    $this->smarty->setCompileDir('/var/smarty/templates_c/');
-    $this->smarty->setConfigDir('/var/smarty/configs/');
-    $this->smarty->setCacheDir('/var/smarty/cache/');
+    $this->smarty->setTemplateDir(&#8203;'/var/smarty/templates/');
+    $this->smarty->setCompileDir(&#8203;'/var/smarty/templates_c/');
+    $this->smarty->setConfigDir(&#8203;'/var/smarty/configs/');
+    $this->smarty->setCacheDir(&#8203;'/var/smarty/cache/');
 
     // Use Smarty for rendering
     $this->smarty->assign('foo', 'bar');
@@ -59,18 +57,18 @@ Note: If a class with the same name already exists, NanoMVC will not attempt to 
 Instead of repeating setup code in every controller, it’s cleaner to create a wrapper plugin around Smarty:
 </p>
 
-<pre><code>/myapp/plugins/nanomvc_library_smarty_wrapper.php
+<pre><code>/myapp/plugins/nanomvc_&#8203;library_smarty_wrapper.php
 
 define('SMARTY_SPL_AUTOLOAD', 1);
-require('/var/smarty/libs/Smarty.class.php');
+require('/var/smarty/&#8203;libs/Smarty.class.php');
 
-class NanoMVC_Library_Smarty_Wrapper extends Smarty {
+class NanoMVC_Library_&#8203;Smarty_Wrapper extends Smarty {
   function __construct() {
     parent::__construct();
-    $this->setTemplateDir('/var/smarty/templates/');
-    $this->setCompileDir('/var/smarty/templates_c/');
-    $this->setConfigDir('/var/smarty/configs/');
-    $this->setCacheDir('/var/smarty/cache/');
+    $this->setTemplateDir(&#8203;'/var/smarty/templates/');
+    $this->setCompileDir(&#8203;'/var/smarty/templates_c/');
+    $this->setConfigDir(&#8203;'/var/smarty/configs/');
+    $this->setCacheDir(&#8203;'/var/smarty/cache/');
   }
 }
 </code></pre>
@@ -93,7 +91,7 @@ class Hello_Controller extends NanoMVC_Controller {
 You can autoload your <code>Smarty_Wrapper</code> by adding it to the autoload configuration file:
 </p>
 
-<pre><code>/myapp/configs/config_autoload.php
+<pre><code>/myapp/configs/&#8203;config_autoload.php
 
 $config['libraries'] = ['Smarty_Wrapper'];
 </code></pre>

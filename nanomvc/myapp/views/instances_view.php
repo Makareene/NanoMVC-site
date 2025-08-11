@@ -1,6 +1,4 @@
-<h1>Instance</h1>
-
-<h2>Getting an Instance</h2>
+<h1>Getting an Instance</h1>
 <p>
 There may be situations where you need to access the current application instance outside the controller — for example, inside a library, model, or plugin — in order to call controller methods or interact with views.
 </p>

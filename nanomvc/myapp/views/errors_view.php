@@ -1,6 +1,4 @@
-<h1>ErrorHandler</h1>
-
-<h2>Custom Error Handler</h2>
+<h1>Custom Error Handler</h1>
 
 <p>
 NanoMVC allows you to define your own custom error handler class to handle system-level errors such as exceptions and warnings.
@@ -13,7 +11,7 @@ This gives you the flexibility to log, display, or process errors in a way that 
   <li>
     <strong>Create a new plugin file</strong><br>
     Add a new file to:<br>
-    <code>/myapp/plugins/my_errorhandler.php</code>
+    <code>/myapp/plugins/&#8203;my_errorhandler.php</code>
   </li>
   <li>
     <strong>Extend the built-in error handler</strong><br>
@@ -25,7 +23,7 @@ This gives you the flexibility to log, display, or process errors in a way that 
   <li>
     <strong>Update application config</strong><br>
     Open:<br>
-    <code>/myapp/configs/config_application.php</code><br>
+    <code>/myapp/configs/config_&#8203;application.php</code><br>
     and specify your custom handler:
     <pre><code>// PHP class that handles system errors
 $config['error_handler_class'] = 'My_ErrorHandler';</code></pre>
