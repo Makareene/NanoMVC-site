@@ -4,14 +4,17 @@
 Welcome to the <strong>NanoMVC</strong> installation guide. This section walks you through setting up the framework, configuring paths, and preparing your environment to start building applications.
 </p>
 
-<h2>Quick "I just want to see it" Install</h2>
+<h2>Quick Start</h2>
+
 <p>
 To get started quickly:
 </p>
+
 <ul>
-  <li>Unpack the archive into your web document root</li>
-  <li>Point your browser to <code>htdocs/index.php</code></li>
-  <li>You should see the welcome screen</li>
+  <li>Download or clone NanoMVC</li>
+  <li>Place <code>htdocs/index.php</code> in your web document root</li>
+  <li>Open your site in a browser</li>
+  <li>You should see the NanoMVC welcome page</li>
 </ul>
 
 <h2>Single Installation (Typical)</h2>
@@ -56,7 +59,7 @@ ini_set('display_errors', '1');
 // Directory separator constant
 if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
 // Uncomment and set if the /nanomvc/ dir is not one level above this file
-// define('NMVC_BASEDIR', dirname(__FILE__) . DS . '..' . DS . 'nanomvc' . DS);
+// define('NMVC_BASEDIR', __DIR__ . DS . '..' . DS . 'nanomvc' . DS);
 </code></pre>
 
 <ul>
@@ -70,32 +73,42 @@ If you define <code>NMVC_ERROR_HANDLING</code> and set it to <code>1</code>, Nan
 </p>
 
 <p>
-After saving, open <code>http://localhost/index.php</code> in your browser. If you don’t see the welcome screen, recheck your paths and error messages.
+After saving, open <code>http://localhost/</code> in your browser. If you don’t see the welcome screen, recheck your paths and error messages.
 </p>
 
 <h2>Database Settings</h2>
 <p>If your application uses a database, edit:</p>
 <pre><code>/nanomvc/myapp/configs/&#8203;config_database.php</code></pre>
 
+<p>
+Configuration files in NanoMVC return arrays. The database configuration file contains one or more named connection definitions.
+</p>
+
 <p>Example configuration:</p>
-<pre><code>$config['default']['plugin']     = 'NanoMVC_PDO';
-$config['default']['type']       = 'mysql';
-$config['default']['host']       = 'localhost';
-$config['default']['name']       = 'dbname';
-$config['default']['user']       = 'dbuser';
-$config['default']['pass']       = 'dbpass';
-$config['default']['persistent'] = false;
+<pre><code>return [
+  'default_pool' => 'default'
+ ,'default' => [
+    'plugin'     => 'NanoMVC_PDO' // Plugin for DB access
+   ,'type'       => 'mysql'       // Connection type
+   ,'host'       => 'localhost'   // DB hostname
+   ,'name'       => 'dbname'      // DB name
+   ,'user'       => 'dbuser'      // DB username
+   ,'pass'       => 'dbpass'      // DB password
+   ,'persistent' => false         // DB connection persistence?
+  ]
+];
 </code></pre>
 
 <ul>
-  <li><code>default</code> is the name of the default DB connection</li>
-  <li>You can define multiple connections by duplicating the block with a different name</li>
-  <li>Use <code>NanoMVC_PDO</code> unless you have your own DB plugin</li>
+  <li><code>default_pool</code> specifies which connection will be used by default</li>
+  <li><code>default</code> is the name of the database connection pool</li>
+  <li>You can define multiple pools by adding additional connection definitions</li>
+  <li>Use <code>NanoMVC_PDO</code> unless you have your own database plugin</li>
 </ul>
 
 <h2>Shared Installation</h2>
 <p>
-This setup allows multiple websites to share the NanoMVC core libraries.
+This setup allows multiple websites to share the NanoMVC core files and common resources.
 </p>
 
 <h3>Structure</h3>
@@ -134,7 +147,7 @@ define('NMVC_MYAPPDIR', '../myapp/');
 <ul>
   <li>Be sure to include a trailing slash for both paths</li>
   <li><code>/sysfiles/</code> should never be modified directly — it’s updated on NanoMVC upgrades</li>
-  <li>Use <code>/myfiles/</code> to store shared plugins or helpers across projects</li>
+  <li>Use <code>/myfiles/</code> to store shared libraries, models, views, configuration files, and other reusable resources across projects.</li>
 </ul>
 
 <h2>Using Git for Updates</h2>
@@ -150,7 +163,7 @@ If you use Git to get updates — which is a good idea compared to updating manu
   Instructions for where to copy it are provided earlier in this chapter.
   </li>
   <li>
-  You are free to modify anything under <code>nanomvc/myfiles</code>. This folder is not affected by updates.
-  The only file that may be updated occasionally is <code>nanomvc/myfiles/plugins/README</code>.
+  You are free to modify anything under <code>nanomvc/myfiles</code>.
+  This directory is intended for shared application resources and is not normally modified by NanoMVC updates.
   </li>
 </ul>

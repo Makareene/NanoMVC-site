@@ -1,7 +1,9 @@
 <h1>Controllers</h1>
 
 <h2>What is a controller?</h2>
-<p>Controller files are what glue the application together. They load models, display views, and tie in the plugins and application library code. They are the content traffic cops, so to speak.</p>
+<p>
+Controller files are what glue the application together. They load models, render views, and coordinate libraries and application logic.
+</p>
 
 <p>A typical URL to a NanoMVC page looks like this:</p>
 <pre><code>http://[host]/&#8203;index.php/&#8203;[controller]/&#8203;[action]/[param1]/&#8203;[param2]/[param3...]</code></pre>
@@ -16,9 +18,11 @@
     hello.php</code></pre>
 
 <pre><code>class Hello_Controller extends NanoMVC_Controller {
-  function index() {
-    echo "Hello World.";
+
+  public function index(): void {
+    echo 'Hello World.';
   }
+
 }</code></pre>
 
 <p><strong>Note:</strong> Ideally, controllers should not contain <code>echo</code> statements or any direct output. The example above is a basic demonstration. Proper examples using views are available in the <b>Views</b> section.</p>
@@ -40,13 +44,15 @@
 
 <p>Now let’s add another method to our controller:</p>
 <pre><code>class Hello_Controller extends NanoMVC_Controller {
-  function index() {
-    echo "Hello World.";
+
+  public function index(): void {
+    echo 'Hello World.';
   }
 
-  function time() {
-    echo "The time is now.";
+  public function time(): void {
+    echo 'The time is now.';
   }
+
 }</code></pre>
 
 <p>Then access it via:</p>
@@ -79,7 +85,8 @@ You can call:</p>
 <p>To get the action name from the URL, use the <code>_get_action()</code> method. See the example below:</p>
 
 <pre><code>class Case_Controller extends NanoMVC_Controller {
-  function Index() {
+
+  public function Index(): void {
     if (__FUNCTION__ === $this->_get_action())
       echo 'the same';
     elseif ($this->_get_action() === 'INDEX')
@@ -89,6 +96,7 @@ You can call:</p>
     else
       throw new Exception("Unknown controller method '{$this->_get_action()}'");
   }
+
 }
 </code></pre>
 
@@ -100,12 +108,12 @@ You can call:</p>
 <p>In NanoMVC, certain methods cannot be called directly via a URL. These are called <strong>uncallable methods</strong>, and their names start with an underscore (<code>_</code>).</p>
 <p>This behavior is inherited from TinyMVC and is reserved both for internal system use and user-defined helpers. You can safely define private or utility methods inside your controllers with a leading underscore, knowing they won't be exposed to routing or executed externally.</p>
 <pre><code>class User_Controller extends NanoMVC_Controller {
-  function profile() {
+  public function profile(): void {
     $this->_log_access(); // call internal helper
-    $this->view->display(&#8203;'user_profile_view'); // show the view
+    $this->view->display(&#8203;'user_profile'); // show the view
   }
 
-  function _log_access() {
+  protected function _log_access(): void {
     // This method cannot be accessed from URL
     // but is available internally
   }
@@ -120,8 +128,10 @@ You can call:</p>
       config_application.php</code></pre>
 
 <pre><code>/* name of default controller/method when none is given in the URL */
-$config['default_controller'] = 'mycontroller';
-$config['default_action'] = 'myaction';</code></pre>
+return [
+  'default_controller' => 'mycontroller'
+ ,'default_action'     => 'myaction'
+];</code></pre>
 
 <h2>Root Controller</h2>
 <p>If you want to force all requests to go through a specific controller and method regardless of the URL, you can configure that here:</p>
@@ -131,8 +141,10 @@ $config['default_action'] = 'myaction';</code></pre>
       config_application.php</code></pre>
 
 <pre><code>/* set this to force controller and method instead of using URL params */
-$config['root_controller'] = 'myroot';
-$config['root_action'] = 'myaction';</code></pre>
+return [
+  'root_controller' => 'myroot'
+ ,'root_action'     => 'myaction'
+];</code></pre>
 <p>The <code>root_controller</code> takes precedence over the default controller and overrides any controller provided in the URL.</p>
 <p>Both <code>root_controller</code> and <code>root_action</code> can be used independently. For example, you may want to override only the action globally, but keep the standard controller logic from the URL.</p>
 
@@ -145,20 +157,28 @@ $config['root_action'] = 'myaction';</code></pre>
       config_application.php</code></pre>
 
 <pre><code>/* URL routing, use preg_replace() compatible syntax */
-$config['routing']['search'] = array('!/foo/(\d+)!');
-$config['routing']['replace'] = array('/foo/index/${1}');</code></pre>
+return [
+  'routing' => [
+    'search'  => ['!/foo/(\d+)!']
+   ,'replace' => ['/foo/index/${1}']
+  ]
+];</code></pre>
 
 <p>This example rewrites <code>/foo/123</code> into <code>/foo/index/123</code> before routing to the controller.</p>
 
 <p>You can use a wide range of regular expressions beyond <code>\w</code> to match various characters. For example, you can also match dashes, uppercase words, symbols, or specific strings.</p>
 
-<pre><code>$config['routing']['search'] = [
-  '!/default-test/([\w-]+)-route!', // 1
-  '!/angry/path!'                   // 2
-];
-$config['routing']['replace'] = [
-  '/default/route/${1}',            // 1
-  '/default/route/angry/path'       // 2
+<pre><code>return [
+  'routing' => [
+    'search' => [
+      '!/default-test/([\w-]+)-route!'
+     ,'!/angry/path!'
+    ]
+    ,'replace' => [
+      '/default/route/${1}'
+     ,'/default/route/angry/path'
+    ]
+  ]
 ];</code></pre>
 
 <p>These examples:</p>
@@ -168,3 +188,22 @@ $config['routing']['replace'] = [
 </ul>
 
 <p>Keep in mind that the resulting rewritten URL must point to a valid controller and method in your application.</p>
+
+<h2>Controller Constructors</h2>
+
+<p>
+Controllers may define their own constructors. If you override the constructor, always call the parent constructor first.
+</p>
+
+<pre><code>class Hello_Controller extends NanoMVC_Controller {
+
+  public function __construct(?string $controller_name = null, ?string $action = null) {
+    parent::__construct($controller_name, $action);
+  }
+
+}
+</code></pre>
+
+<p>
+The constructor receives the resolved controller and action names. In most cases, you only need to pass them to the parent constructor.
+</p>

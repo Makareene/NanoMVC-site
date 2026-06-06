@@ -1,14 +1,20 @@
-<h1>Plugin: BlogMenu</h1>
+<h1>BlogMenu</h1>
 
 <p>
 The <code>blogmenu</code> plugin is a utility library designed to extract blog categories (controllers) and blog articles (controller methods) from your NanoMVC application. It uses structured metadata comments in both controllers and their methods.
 </p>
 
+<p>
+BlogMenu was originally created for the NanoMVC documentation and blog systems.
+It allows controllers and methods to act as categories and articles without requiring a database or external content storage.
+</p>
+
 <h2>How to Use</h2>
 
-<pre><code>$this->load->library(&#8203;'blogmenu');
-$categories = $this->blogmenu->&#8203;get_categories();
-$articles = $this->blogmenu->&#8203;get_articles();</code></pre>
+<pre><code>$this->load->library(&#8203;'BlogMenu', 'menu');
+
+$categories = $this->menu->&#8203;get_categories();
+$articles = $this->menu->&#8203;get_articles();</code></pre>
 
 <h2>How to Define Metadata</h2>
 
@@ -18,18 +24,18 @@ $articles = $this->blogmenu->&#8203;get_articles();</code></pre>
 At the top of your controller file, place the following metadata comment on the first line:
 </p>
 
-<pre><code>&lt;?php // -&gt; as categorie: { "name": "Category Name", "created": "2025-08-01 22:17" } ?&gt;</code></pre>
+<pre><code>&lt;?php // -&gt; as category: { "name": "Category Name", "created": "2025-08-01 22:17" } ?&gt;</code></pre>
 
 <ul>
-  <li><code>name</code> – The name of the blog category</li>
-  <li><code>created</code> – The date the category was created (format: <code>Y-m-d H:i</code>)</li>
+  <li><code>name</code> – Required category name</li>
+  <li><code>created</code> – Required timestamp (<code>Y-m-d H:i</code>)</li>
+  <li>Any other custom keys are allowed and will be copied into the category metadata array</li>
 </ul>
 
 <h3>Method (Article)</h3>
 
 <p>
-For each method (must be public and not start with an underscore), add metadata in the PHPDoc using the
-<code>@blog</code> tag:
+For each method (must be public and not start with an underscore), add metadata in the PHPDoc using the <code>@blog</code> tag:
 </p>
 
 <pre><code>/**
@@ -41,9 +47,22 @@ For each method (must be public and not start with an underscore), add metadata 
  */</code></pre>
 
 <ul>
-  <li><code>name</code> – The menu title</li>
-  <li><code>description</code> – Optional summary</li>
+  <li><code>name</code> – Required menu title</li>
   <li><code>created</code> – Required timestamp (<code>Y-m-d H:i</code>)</li>
+  <li><code>description</code> – Optional summary</li>
+  <li>Any other custom keys are allowed and will be copied into the article metadata array</li>
+</ul>
+
+<h2>Generated Fields</h2>
+
+<p>
+BlogMenu automatically generates several internal fields while processing categories and articles.
+These fields are prefixed with an underscore.
+</p>
+
+<ul>
+  <li><code>_link</code> – Generated URL for the category or article</li>
+  <li><code>_page</code> – Page number assigned by <code>pagination()</code></li>
 </ul>
 
 <h2>Available Methods</h2>
@@ -73,11 +92,11 @@ Scans the methods of the current or another controller and returns all articles 
 </ul>
 
 <p>
-If <code>$controller_name</code> is provided, BlogMenu will try to load that controller from either the <code>myapp</code> or <code>myfiles</code> paths.
+If <code>$controller_name</code> is provided, BlogMenu will try to load that controller from either the <code>myapp</code>, <code>myfiles</code> or <code>sysfiles</code> paths.
 If not found, an exception will be thrown. When loaded, the controller will be instantiated with the given controller and action names, allowing metadata extraction from another controller's articles.
 </p>
 
-<h3>Get next and previous article: <code>get_nav(array &amp;$items, string $current): array</code></h3>
+<h3><code>get_nav(array &amp;$items, string $current): array</code></h3>
 
 <p>
 Returns <code>pre</code> and <code>next</code> items relative to the current article key.
@@ -89,8 +108,8 @@ Returns <code>pre</code> and <code>next</code> items relative to the current art
 </ul>
 
 <pre><code>[
-  'pre' => [ ... ],  // previous article or empty array
-  'next' => [ ... ]  // next article or empty array
+  'pre'  => [ ... ] // previous article or empty array
+ ,'next' => [ ... ]  // next article or empty array
 ]</code></pre>
 
 <h3><code>pagination(array &amp;$items, int $limit = 1): int|bool</code></h3>
@@ -107,7 +126,7 @@ Splits the list of articles into pages and adds a <code>_page</code> index to ea
 
 <p>
 Each article in <code>$items</code> gets a <code>_page</code> key with its page number.
-Example: if limit is 3 and you have 8 articles, they will be marked with pages 1, 1, 1, 2, 2, 2, 3, 3.
+For example, if the limit is 3 and you have 8 articles, they will be assigned pages 1, 1, 1, 2, 2, 2, 3, 3.
 </p>
 
 <h2>Validation</h2>
@@ -115,5 +134,5 @@ Example: if limit is 3 and you have 8 articles, they will be marked with pages 1
 <ul>
   <li><code>name</code> and <code>created</code> are required in both category and article metadata</li>
   <li>Date format must be <code>Y-m-d H:i</code>; invalid formats throw an exception</li>
-  <li>Malformed or missing JSON metadata will also result in an exception</li>
+  <li>Malformed or invalid JSON metadata will also result in an exception</li>
 </ul>

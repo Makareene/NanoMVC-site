@@ -1,31 +1,86 @@
 <h1>Customize Core</h1>
 
 <p>
-If you want to customize the core of NanoMVC, you should copy
-<code>sysfiles/NanoMVC.php</code> to <code>myfiles/NanoMVC.php</code>. (You can also place it in the <code>myapp</code> folder if you prefer.)
-Then, replace the following line in <code>myfiles/NanoMVC.php</code>:
+NanoMVC separates the framework entry class from the main core implementation.
+This allows you to customize framework behavior without modifying the actual core logic.
 </p>
 
-<pre><code>require_once dirname(__FILE__) . DS . 'NanoMVCCore.php'; // main core class</code></pre>
-
-<p>with this line:</p>
-
-<pre><code>require_once dirname(__FILE__) . DS . '..' . DS . 'sysfiles' . DS . 'NanoMVCCore.php'; // main core class</code></pre>
+<h2>Architecture</h2>
 
 <p>
-And in your <code>index.php</code> file, replace:
+The file:
 </p>
 
-<pre><code>// Load the core NanoMVC system
-require NMVC_BASEDIR . 'sysfiles' . DS . 'NanoMVC.php';</code></pre>
-
-<p>with:</p>
-
-<pre><code>// Load the core NanoMVC system
-require NMVC_BASEDIR . 'myfiles' . DS . 'NanoMVC.php';</code></pre>
+<pre><code>/sysfiles/NanoMVC.php</code></pre>
 
 <p>
-With these changes, you will be able to customize everything you want using PHP capabilities like method overriding and more.
-You will still be able to receive NanoMVC updates, because all core logic is handled in <code>NanoMVCCore.php</code>,
-which is not affected by your custom <code>NanoMVC.php</code>.
+contains the public NanoMVC class:
+</p>
+
+<pre><code>class nmvc extends nmvc_core {}</code></pre>
+
+<p>
+The actual framework implementation is located in:
+</p>
+
+<pre><code>/sysfiles/NanoMVCCore.php</code></pre>
+
+<p>
+The application entry point (<code>htdocs/index.php</code>) loads
+<code>NanoMVC.php</code>, which in turn loads
+<code>NanoMVCCore.php</code>.
+</p>
+
+<h2>Customizing NanoMVC</h2>
+
+<p>
+To customize framework behavior, simply extend the <code>nmvc</code> class.
+</p>
+
+<p>
+For example:
+</p>
+
+<pre><code>class nmvc extends nmvc_core {
+
+  public function myMethod(): void {
+    // Custom logic
+  }
+
+}</code></pre>
+
+<p>
+You may also override existing methods inherited from
+<code>nmvc_core</code>.
+</p>
+
+<h2>Why This Exists</h2>
+
+<p>
+The separation between <code>nmvc</code> and <code>nmvc_core</code>
+allows framework customization without modifying the core implementation.
+</p>
+
+<p>
+In most cases, NanoMVC updates only affect
+<code>NanoMVCCore.php</code>,
+while your customizations remain inside
+<code>NanoMVC.php</code>.
+</p>
+
+<p>
+This makes upgrading NanoMVC easier because your changes are isolated
+from the main framework code.
+</p>
+
+<h2>When to Use It</h2>
+
+<p>
+Most applications never need to customize the NanoMVC core.
+Controllers, models, libraries, and plugins are usually sufficient.
+</p>
+
+<p>
+Core customization is intended for framework-level changes that affect
+the behavior of the NanoMVC application itself.
 </p>

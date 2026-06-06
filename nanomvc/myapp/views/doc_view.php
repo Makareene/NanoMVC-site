@@ -1,25 +1,25 @@
       <h1>Documentation</h1>
 
       <p>
-      Welcome to the NanoMVC documentation. This guide will walk you through everything you need to know to start working with NanoMVC — a minimalist PHP MVC framework inspired by TinyMVC. Whether you're building a small web application or a lightweight API service, NanoMVC helps you stay organized with a clean separation of concerns.
+      Welcome to the NanoMVC documentation. This guide covers everything you need to build applications with NanoMVC, a lightweight PHP MVC framework focused on simplicity, readability, and extensibility.
       </p>
 
       <p>
-      NanoMVC retains the simplicity and clarity of TinyMVC while introducing modern touches and enhancements. It’s perfect for developers who prefer control and minimalism over heavyweight frameworks.
+      NanoMVC provides a clean separation between controllers, models, and views while remaining easy to understand and customize. Whether you are building a small website, a REST API, a personal blog, or a business application, NanoMVC gives you a lightweight foundation without unnecessary complexity.
       </p>
 
       <h2>Documentation Sections</h2>
 
       <p>
-      Explore the following topics:
+      Explore the topics below to learn how NanoMVC works and how to adapt it to your own projects.
       </p>
 
       <?php if($articles):?>
       <ul class="doc-list">
         <?php foreach($articles as $article):?>
         <li>
-          <a href="<?=$dh::esc_html($article['_link'])?>"><?=$dh::esc_html($article['name'])?></a>
-          <p class="doc-desc"><?=$dh::esc_html($article['description'])?></p>
+          <a href="<?=$dh->esc_html($article['_link'])?>"><?=$dh->esc_html($article['name'])?></a>
+          <p class="doc-desc"><?=$dh->esc_html($article['description'])?></p>
         </li>
         <?php endforeach?>
       </ul>
