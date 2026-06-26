@@ -278,7 +278,7 @@ The login process verifies a user's login and password.
 If authentication succeeds, the user data is stored in the session.
 </p>
 
-<pre><code>$this->access->login($login, $password);
+<pre><code>$this->access->login(&#8203;$login, $password);
 </code></pre>
 
 <p>
@@ -398,7 +398,7 @@ This is useful for showing only menu items that the current user is allowed to a
 </p>
 
 <pre><code>$items = [
-  'user' =&gt; 'users,user_create,user_reset,user_delete,generate',
+  'user' =&gt; 'users,user_create,user_reset,&#8203;user_delete,generate',
   'role' =&gt; 'index,role_create'
 ];
 
@@ -417,7 +417,7 @@ The Access plugin provides methods for creating, updating, deleting, and listing
 
 <h3>Creating a User</h3>
 
-<pre><code>$this->access->create($login, $roles);
+<pre><code>$this->access->create(&#8203;$login, $roles);
 </code></pre>
 
 <p>
@@ -478,12 +478,12 @@ By default, this returns role names and the number of rules in each role.
 To load one role with full rules:
 </p>
 
-<pre><code>$role = $this->access->roles('admin', false);
+<pre><code>$role = $this->access->roles(&#8203;'admin', false);
 </code></pre>
 
 <h3>Creating a Role</h3>
 
-<pre><code>$this->access->role_create($role_name, $rules);
+<pre><code>$this->access->role_create(&#8203;$role_name, $rules);
 </code></pre>
 
 <p>
