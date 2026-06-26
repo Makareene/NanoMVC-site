@@ -345,6 +345,21 @@ class Doc_Controller extends NanoMVC_Controller {
     $this->view->display('footer', $this->footer);
   }
 
+  /**
+   * @blog {
+   *   "name": "Access Plugin",
+   *   "description": "Learn how to use the NanoMVC Access plugin for XML-based authentication, authorization, user management, role management, and permission checking.",
+   *   "created": "2026-06-26 09:00"
+   * }
+   */
+  public function access(): void {
+    $ar_header = $this->_prepare_article('NanoMVC - Access Plugin');
+
+    $this->view->display('header', $ar_header);
+    $this->view->display('access');
+    $this->view->display('footer', $this->footer);
+  }
+
 }
 
 ?>
