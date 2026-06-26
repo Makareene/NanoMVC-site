@@ -349,7 +349,7 @@ class Doc_Controller extends NanoMVC_Controller {
    * @blog {
    *   "name": "Access Plugin",
    *   "description": "Learn how to use the NanoMVC Access plugin for XML-based authentication, authorization, user management, role management, and permission checking.",
-   *   "created": "2026-06-26 09:00"
+   *   "created": "2026-06-26 22:29"
    * }
    */
   public function access(): void {
