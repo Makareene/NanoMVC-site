@@ -373,7 +373,7 @@ After a successful unlock, the user may try logging in again.
 Authorization is performed by checking whether the current user has a specific permission for a controller and action.
 </p>
 
-<pre><code>$this->access->check($controller, $action, NanoMVC_Library_Access::PERMISSION_READ);
+<pre><code>$this->access->check($controller, $action, NanoMVC_Library_Access::&#8203;PERMISSION_READ);
 </code></pre>
 
 <p>
@@ -384,10 +384,10 @@ If access is denied, the method throws an exception.
 The available permission constants are:
 </p>
 
-<pre><code>NanoMVC_Library_Access::PERMISSION_READ
-NanoMVC_Library_Access::PERMISSION_WRITE
-NanoMVC_Library_Access::PERMISSION_CREATE
-NanoMVC_Library_Access::PERMISSION_DELETE
+<pre><code>NanoMVC_Library_Access::&#8203;PERMISSION_READ
+NanoMVC_Library_Access::&#8203;PERMISSION_WRITE
+NanoMVC_Library_Access::&#8203;PERMISSION_CREATE
+NanoMVC_Library_Access::&#8203;PERMISSION_DELETE
 </code></pre>
 
 <h2>Navigation Maps</h2>
@@ -574,10 +574,10 @@ This prevents users from continuing to work with outdated permissions after thei
 The method returns one of the following constants:
 </p>
 
-<pre><code>NanoMVC_Library_Access::SESSION_OK
-NanoMVC_Library_Access::SESSION_NOT_LOGGED
-NanoMVC_Library_Access::SESSION_USER_DELETED
-NanoMVC_Library_Access::SESSION_USER_CHANGED
+<pre><code>NanoMVC_Library_Access::&#8203;SESSION_OK
+NanoMVC_Library_Access::&#8203;SESSION_NOT_LOGGED
+NanoMVC_Library_Access::&#8203;SESSION_USER_DELETED
+NanoMVC_Library_Access::&#8203;SESSION_USER_CHANGED
 </code></pre>
 
 <h2>Administration</h2>
