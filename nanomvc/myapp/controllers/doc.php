@@ -360,6 +360,21 @@ class Doc_Controller extends NanoMVC_Controller {
     $this->view->display('footer', $this->footer);
   }
 
+  /**
+   * @blog {
+   *   "name": "Asset",
+   *   "description": "Learn how to configure and use the Asset plugin for automatic JavaScript and CSS bundling in NanoMVC.",
+   *   "created": "2026-07-19 19:00"
+   * }
+   */
+  public function asset(): void {
+    $ar_header = $this->_prepare_article('NanoMVC - Asset');
+
+    $this->view->display('header', $ar_header);
+    $this->view->display('asset');
+    $this->view->display('footer', $this->footer);
+  }
+
 }
 
 ?>
