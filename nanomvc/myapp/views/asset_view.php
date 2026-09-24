@@ -42,6 +42,11 @@ Each asset group contains two required fields:
   <li><code>list</code> – List of source files that will be merged.</li>
 </ul>
 
+<p>
+A source file that begins with the directory separator is treated as an absolute path.
+Otherwise, the file is resolved relative to the configured source directory.
+</p>
+
 <h2>Loading the Library</h2>
 
 <pre><code>$this->load->library('Asset', 'asset');</code></pre>

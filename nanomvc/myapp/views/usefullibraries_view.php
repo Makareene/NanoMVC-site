@@ -114,6 +114,13 @@ and validating data.
   </li>
 
   <li>
+    <strong>etag(string $hash): void</strong><br>
+    Sends an <code>ETag</code> header using the specified hash.
+    If the client sends the same value in <code>If-None-Match</code>, the method responds with
+    <code>304 Not Modified</code> and terminates the response.
+  </li>
+
+  <li>
     <strong>esc_html(string $text): string</strong><br>
     Escapes HTML special characters using
     <code>ENT_QUOTES | ENT_SUBSTITUTE</code>.

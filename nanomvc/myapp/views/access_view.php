@@ -67,6 +67,11 @@ This separation allows the same library to be reused by different applications w
 Like every NanoMVC library, the Access plugin can be loaded through the standard library loader:
 </p>
 
+<p>
+A PHP session must already be active before the Access library is loaded.
+The library does not start a session automatically.
+</p>
+
 <pre><code>$this->load->library(&#8203;'Access', 'access');
 </code></pre>
 
@@ -104,7 +109,7 @@ Example:
 <ul>
   <li><code>file</code> defines the XML access file location.</li>
   <li><code>session_key</code> defines the session key used to store the authenticated user.</li>
-  <li><code>max_failed</code> defines how many failed login attempts are allowed before an account requires unlocking.</li>
+  <li><code>max_failed</code> defines how many failed login attempts are allowed before an account requires unlocking. Set it to <code>0</code> to disable account locking.</li>
 </ul>
 
 <p>
@@ -357,14 +362,15 @@ A user cannot reset themselves.
 <h2>Unlocking a User</h2>
 
 <p>
-If a user exceeds the configured failed login limit, the account requires unlocking.
+If a user reaches the configured failed login limit, the account requires unlocking.
 </p>
 
 <pre><code>$this->access->unlock($login, $unlock);
 </code></pre>
 
 <p>
-After a successful unlock, the user may try logging in again.
+After a successful unlock, the user may make one login attempt.
+The unlock state is consumed after that attempt whether the password is correct or not.
 </p>
 
 <h2>Authorization</h2>
