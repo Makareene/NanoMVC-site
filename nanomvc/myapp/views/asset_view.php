@@ -43,7 +43,7 @@ Each asset group contains two required fields:
 </ul>
 
 <p>
-A source file that begins with the directory separator is treated as an absolute path.
+An absolute source file path is used as-is.
 Otherwise, the file is resolved relative to the configured source directory.
 </p>
 

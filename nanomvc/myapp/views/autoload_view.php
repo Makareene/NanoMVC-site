@@ -32,7 +32,8 @@ Use the <code>autoload</code> option:
 <h2>Autoloading External Files</h2>
 
 <p>
-If the path starts with <code>DS</code>, NanoMVC treats it as a full path.
+If the path is absolute, NanoMVC uses it as-is.
+Both Unix-style and Windows-style absolute paths are supported.
 This is useful for external projects located outside your NanoMVC application.
 </p>
 
@@ -116,7 +117,7 @@ This keeps the external project separate from NanoMVC while still allowing you t
 <h2>Relative Paths</h2>
 
 <p>
-If the path does not start with <code>DS</code>, NanoMVC treats it as a path relative to your <code>myapp</code> directory.
+If the path is not absolute, NanoMVC treats it as a path relative to your <code>myapp</code> directory.
 </p>
 
 <pre><code>return [

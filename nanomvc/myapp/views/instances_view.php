@@ -62,6 +62,18 @@ To get parsed URL segments, use:
 In most cases, it is more convenient to use the <code>URI</code> library from a controller.
 </p>
 
+<h2>Checking Absolute Paths</h2>
+
+<p>
+The main NanoMVC instance provides a cross-platform helper for checking whether a filesystem path is absolute:
+</p>
+
+<pre><code>$is_absolute = nmvc::instance()&#8203;->isAbsolutePath($path);</code></pre>
+
+<p>
+The method supports Unix-style paths, Windows drive paths, and paths beginning with a backslash.
+</p>
+
 <h2>Finding Framework Files</h2>
 
 <p>
