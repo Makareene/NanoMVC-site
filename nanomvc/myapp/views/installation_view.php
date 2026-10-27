@@ -4,6 +4,10 @@
 Welcome to the <strong>NanoMVC</strong> installation guide. This section walks you through setting up the framework, configuring paths, and preparing your environment to start building applications.
 </p>
 
+<p>
+NanoMVC requires PHP 8.3 or newer.
+</p>
+
 <h2>Quick Start</h2>
 
 <p>
@@ -167,3 +171,8 @@ If you use Git to get updates — which is a good idea compared to updating manu
   This directory is intended for shared application resources and is not normally modified by NanoMVC updates.
   </li>
 </ul>
+
+<p>
+The NanoMVC repository's root <code>.gitignore</code> ignores the contents of <code>nanomvc/myfiles</code>,
+except for <code>plugins/README</code>. Adjust the ignore rules if you want Git to track your own shared files in that repository.
+</p>

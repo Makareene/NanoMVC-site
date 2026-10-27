@@ -91,6 +91,18 @@ custom template integration, or project-specific view behavior.
 </p>
 
 <p>
+Application rendering uses <code>display()</code>, while framework system views use <code>sysview()</code>.
+Both call the protected <code>_display()</code> method, so a custom implementation can override the entry points separately or change their shared behavior.
+Note that <code>fetch()</code> calls <code>display()</code>.
+</p>
+
+<p>
+Since NanoMVC 1.1.0, <code>_view()</code> receives the view name as its first argument rather than the resolved file path.
+The current path is held in the protected <code>$filepath</code> property and restored after nested rendering.
+Update any custom <code>_view()</code> override that relies on the former argument.
+</p>
+
+<p>
 You are not limited to these classes. Any NanoMVC class may be extended
 to add project-specific functionality while keeping your application code
 clean and reusable.

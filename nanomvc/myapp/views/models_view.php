@@ -109,6 +109,20 @@ $this->db->update('tablename', ['col1' => 'val1']);</code></pre>
 $this->db->delete('tablename');</code></pre>
 <p>Returns <code>true</code> on success. <strong>Always use WHERE with delete()</strong> to avoid wiping entire tables.</p>
 
+<h3>Database Errors</h3>
+
+<p>
+When NanoMVC wraps a <code>PDOException</code> from a connection or query failure,
+the original exception is available through <code>getPrevious()</code>:
+</p>
+
+<pre><code>try {
+  $members = $this->db->query_all(&#8203;'select * from members');
+} catch (Exception $e) {
+  $original = $e->getPrevious(); // PDOException, if one was wrapped
+  throw $e;
+}</code></pre>
+
 <h3>Available methods</h3>
 <ul>
   <li><code>query()</code> — execute a query and loop with <code>next()</code></li>

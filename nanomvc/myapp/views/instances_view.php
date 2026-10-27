@@ -62,6 +62,17 @@ To get parsed URL segments, use:
 In most cases, it is more convenient to use the <code>URI</code> library from a controller.
 </p>
 
+<p>
+To get the original <code>PATH_INFO</code> before NanoMVC routing:
+</p>
+
+<pre><code>$path = nmvc::instance()&#8203;->getOriginalPathInfo();</code></pre>
+
+<p>
+This preserves the path supplied by the web server; if <code>PATH_INFO</code> is absent or empty, it returns <code>/</code>.
+For the library equivalent, see <a href="/doc/usefullibraries">Useful Libraries</a>.
+</p>
+
 <h2>Checking Absolute Paths</h2>
 
 <p>
@@ -94,6 +105,24 @@ There are also plural methods that return arrays of matching files:
 $controllers = nmvc::instance()->findControllers();
 $models      = nmvc::instance()->findModels();
 $views       = nmvc::instance()->findViews();</code></pre>
+
+<p>
+View lookups accept nested names using <code>/</code>, and <code>findViews()</code> accepts glob patterns:
+</p>
+
+<pre><code>$view = nmvc::instance()&#8203;->findView(&#8203;'admin/reports/list');
+$views = nmvc::instance()&#8203;->findViews(&#8203;'admin/*');</code></pre>
+
+<p>
+The default <code>findViews()</code> search covers only the root of each views directory; it does not search subdirectories recursively.
+Search results are keyed by filename, so if multiple matches have the same filename, only the first match is returned.
+Results that expand to a dot-slash path are skipped. See <a href="/doc/views">Views</a> for view path rules.
+</p>
+
+<p>
+Config, controller, and model names or search patterns cannot contain <code>/</code> or <code>\</code>; these types do not support nested paths.
+An invalid name or pattern causes an exception.
+</p>
 
 <h2>When to Use It</h2>
 

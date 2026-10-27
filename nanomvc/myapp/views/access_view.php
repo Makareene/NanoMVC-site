@@ -72,6 +72,12 @@ A PHP session must already be active before the Access library is loaded.
 The library does not start a session automatically.
 </p>
 
+<p>
+For example, start the session during application startup, before sending output:
+</p>
+
+<pre><code>session_start();</code></pre>
+
 <pre><code>$this->load->library(&#8203;'Access', 'access');
 </code></pre>
 
@@ -81,10 +87,6 @@ The library is then available as:
 
 <pre><code>$this->access
 </code></pre>
-
-<p>
-Alternatively, the library may be loaded automatically by adding it to the application's autoload configuration.
-</p>
 
 <h2>Configuration</h2>
 
@@ -114,12 +116,13 @@ Example:
 
 <p>
 If the access file path is relative, NanoMVC resolves it from the application directory.
+Unix-style and Windows-style absolute paths are used as given.
 </p>
 
 <h2>The Access File</h2>
 
 <p>
-By default, all users, roles, and permissions are stored in:
+With the example configuration above, users, roles, and permissions are stored in:
 </p>
 
 <pre><code>nanomvc/myapp/configs/access.xml</code></pre>
@@ -280,7 +283,8 @@ Action names may contain lowercase letters, numbers, underscores, and wildcards.
 
 <p>
 The login process verifies a user's login and password.
-If authentication succeeds, the user data is stored in the session.
+If authentication succeeds, the session ID is regenerated and the user data is stored in the session.
+An unknown or unactivated user and an incorrect password for an unlocked account produce the same login failure message.
 </p>
 
 <pre><code>$this->access->login(&#8203;$login, $password);
@@ -309,18 +313,32 @@ To log out:
 <pre><code>$this->access->logout();
 </code></pre>
 
+<p>
+Logging out also clears the library's cached user, roles, and permissions.
+</p>
+
 <h2>Activation</h2>
 
 <p>
 A newly created user may be activated using a secret code.
-During activation, the user sets a password and receives an unlock key.
+First validate the secret and prepare an unlock key in the current session:
 </p>
 
-<pre><code>$this->access->activate($login, $secret, $password);
+<pre><code>$this->access->&#8203;check_activation(&#8203;$login, $secret);
+$unlock = $this->access->&#8203;prepare_unlock($login);
 </code></pre>
 
 <p>
-Activation removes the secret code and stores the hashed password.
+Show the unlock key securely to the user so it can be saved for later.
+Then activate the account in the same session with the user's chosen password:
+</p>
+
+<pre><code>$this->access->activate(&#8203;$login, $secret, $password);
+</code></pre>
+
+<p>
+Activation removes the secret and stores hashes of the password and unlock key.
+If hashing fails, the method throws an exception.
 </p>
 
 <h2>Generating an Activation Secret</h2>

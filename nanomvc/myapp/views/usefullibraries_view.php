@@ -58,6 +58,17 @@ php/routing</code></pre>
   </li>
 
   <li>
+    <strong>original_uri(): string</strong><br>
+    Returns the original <code>PATH_INFO</code> before NanoMVC routing, preserving it as supplied by the server.
+    If the server did not provide a path, it returns <code>/</code>. The query string is not part of <code>PATH_INFO</code>.
+    <br>
+    Example:
+    <pre><code>// /foo/123 is routed to /foo/index/123
+$this->uri->&#8203;original_uri(); // /foo/123
+$this->uri->uri();          // foo/index/123</code></pre>
+  </li>
+
+  <li>
     <strong>parse_query_string(string $query = ''): array</strong><br>
     Parses a query string into an array of <code>['key' =&gt; ..., 'val' =&gt; ...]</code> pairs.
     Empty keys and values are preserved.
@@ -115,9 +126,17 @@ and validating data.
 
   <li>
     <strong>etag(string $hash): void</strong><br>
-    Sends an <code>ETag</code> header using the specified hash.
-    If the client sends the same value in <code>If-None-Match</code>, the method responds with
-    <code>304 Not Modified</code> and terminates the response.
+    Sends an <code>ETag</code> header using the supplied hash without surrounding quotes.
+    Call it before sending output. For a matching <code>If-None-Match</code>, it returns
+    <code>304 Not Modified</code> for GET and HEAD requests, or <code>412 Precondition Failed</code>
+    for other request methods, and terminates the response.
+    Lists of tags, weak tags, and the <code>*</code> wildcard are supported.
+    If there is no match, execution continues.
+    <br>
+    Example:
+    <pre><code>$html = $this->view->fetch(&#8203;'article', $data);
+$this->dh->&#8203;etag(hash('sha256', $html));
+echo $html;</code></pre>
   </li>
 
   <li>

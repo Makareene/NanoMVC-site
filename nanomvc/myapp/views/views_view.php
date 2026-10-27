@@ -46,6 +46,10 @@
 
 }</code></pre>
 
+<p>
+If rendering fails, <code>fetch()</code> cleans its output buffer and lets the exception propagate.
+</p>
+
 <h2>Assigning variables to the view</h2>
 <p>To pass data to your views, use <code>assign()</code>. Here's how:</p>
 <pre><code>class Hello_Controller extends NanoMVC_Controller {
@@ -92,7 +96,51 @@ $this->view->display(&#8203;'hello', $data);</code></pre>
 Variables passed directly to <code>display()</code> or <code>fetch()</code> override variables previously assigned using <code>assign()</code>.
 </p>
 
+<p>
+Do not pass a variable named <code>this</code>: PHP does not allow <code>$this</code> to be reassigned.
+The view no longer receives a <code>$filename</code> variable automatically. If needed, pass it as view data.
+A variable named <code>$filepath</code> can also be passed as data; it does not change which view file is included.
+</p>
+
 <p><strong>Note:</strong> This example uses static text for simplicity. In real applications, content should come from models, config files, or libraries. Avoid embedding content directly in controllers or models to maintain proper MVC architecture.</p>
+
+<h2>Views in Nested Directories</h2>
+
+<p>
+Views may be organized into subdirectories:
+</p>
+
+<pre><code>/myapp/views/
+  admin/
+    reports/
+      list_view.php</code></pre>
+
+<p>
+Use the path relative to the views directory, with <code>/</code> as the separator:
+</p>
+
+<pre><code>$this->view->display(&#8203;'admin/reports/list');
+$html = $this->view->fetch(&#8203;'admin/reports/list');</code></pre>
+
+<p>
+Do not include <code>_view</code> or <code>.php</code> in the name.
+NanoMVC lowercases the name, including directory names, when searching.
+On case-sensitive filesystems, use lowercase directory and file names.
+</p>
+
+<p>
+Invalid view names cause an exception. The following are not allowed:
+</p>
+
+<ul>
+  <li>Empty names, absolute paths, backslashes, or null bytes</li>
+  <li>The sequence <code>./</code> anywhere in the name, including <code>../</code></li>
+  <li><code>..</code> as the entire name or as the final path component</li>
+</ul>
+
+<p>
+Symbolic links inside a views directory are followed and may point outside that directory.
+</p>
 
 <h2>View Discovery</h2>
 
@@ -105,4 +153,9 @@ When calling:
 
 <p>
 NanoMVC searches the configured view locations and automatically resolves the correct file. Neither the <code>.php</code> extension nor the <code>_view</code> suffix should be specified when calling <code>display()</code> or <code>fetch()</code>.
+</p>
+
+<p>
+The search checks <code>myapp</code>, then <code>myfiles</code>, then <code>sysfiles</code>.
+For direct lookup and wildcard searches, see <a href="/doc/instances">Finding Framework Files</a>.
 </p>

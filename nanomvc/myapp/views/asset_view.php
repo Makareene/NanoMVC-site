@@ -2,7 +2,7 @@
 
 <p>
 The <code>Asset</code> plugin is a utility library for generating bundled JavaScript and CSS files from multiple source assets.
-It allows you to define groups of files in a configuration file and automatically produce a single optimized asset for production while still using separate files during development.
+It allows you to define groups of files in a configuration file and combine them into a single asset for production while still using separate files during development.
 </p>
 
 <p>
@@ -43,13 +43,34 @@ Each asset group contains two required fields:
 </ul>
 
 <p>
-An absolute source file path is used as-is.
+When generating a bundle, an absolute source file path is used as-is.
+Unix-style and Windows-style absolute paths are recognized; the path must be valid on the host system.
 Otherwise, the file is resolved relative to the configured source directory.
 </p>
 
 <h2>Loading the Library</h2>
 
-<pre><code>$this->load->library('Asset', 'asset');</code></pre>
+<p>
+Before loading Asset, the controller must expose the source directory, target directory, and generation mode.
+For example:
+</p>
+
+<pre><code>class Page_Controller extends NanoMVC_Controller {
+  public string $mode_tpl_from = &#8203;'/var/www/site/template';
+  public string $mode_tpl_to = &#8203;'/var/www/site/generate';
+  public string $mode_tpl_generation = 'yes';
+  public NanoMVC_Library_Asset $asset;
+
+  public function index(): void {
+    $this->load->library(&#8203;'Asset', 'asset');
+    $files = $this->asset->get(&#8203;'templ', 'css-top');
+  }
+}</code></pre>
+
+<p>
+Choose paths appropriate for your application. With this example, relative CSS source files in the
+<code>templ</code> group are read from <code>/var/www/site/&#8203;template/templ/css/</code>.
+</p>
 
 <h2>Generating an Asset</h2>
 
@@ -60,8 +81,8 @@ Depending on the configured generation mode, this method returns either:
 </p>
 
 <ul>
-  <li>The original list of source files.</li>
-  <li>The generated bundled file.</li>
+  <li>The original list of source file names.</li>
+  <li>An array containing the generated bundle's filename.</li>
 </ul>
 
 <p>
@@ -79,6 +100,11 @@ The plugin supports three generation modes:
   <li><code>yes</code> – Generate the bundled asset only if it does not already exist.</li>
   <li><code>always</code> – Regenerate the bundled asset on every request.</li>
 </ul>
+
+<p>
+In <code>no</code> mode, the configured source list is returned unchanged and source files are not read.
+The application is responsible for constructing URLs for the returned names.
+</p>
 
 <h2>Generated File Structure</h2>
 
@@ -148,7 +174,7 @@ If generation is enabled, the bundled asset is created automatically when requir
   <li>The requested template must exist.</li>
   <li>The requested asset group must exist.</li>
   <li>Every asset group must define both <code>name</code> and <code>list</code>.</li>
-  <li>All source files must exist and be readable.</li>
-  <li>The output directory must be writable.</li>
+  <li>When a bundle is generated, all source files must exist and be readable.</li>
+  <li>When a bundle is generated, the output directory must be writable.</li>
   <li>Unknown generation modes result in an exception.</li>
 </ul>

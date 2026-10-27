@@ -189,6 +189,11 @@ return [
 
 <p>Keep in mind that the resulting rewritten URL must point to a valid controller and method in your application.</p>
 
+<p>
+To access the original request path before routing, use the URI library's <code>original_uri()</code> method.
+See <a href="/doc/usefullibraries">Useful Libraries</a> for an example.
+</p>
+
 <h2>Controller Constructors</h2>
 
 <p>
