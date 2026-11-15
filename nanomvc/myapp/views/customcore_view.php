@@ -20,25 +20,35 @@ contains the public NanoMVC class:
 <pre><code>class nmvc extends nmvc_core {}</code></pre>
 
 <p>
-The actual framework implementation is located in:
+The framework implementation is the abstract class <code>nmvc_core</code>, located in:
 </p>
 
 <pre><code>/sysfiles/NanoMVCCore.php</code></pre>
 
 <p>
-The application entry point (<code>htdocs/index.php</code>) loads
-<code>NanoMVC.php</code>, which in turn loads
-<code>NanoMVCCore.php</code>.
+The application entry point (<code>htdocs/index.php</code>) loads <code>NanoMVCCore.php</code> first, then <code>NanoMVC.php</code>.
+It creates an instance with <code>new nmvc()</code> and calls <code>main()</code>.
+If your existing entry point only loads <code>NanoMVC.php</code>, add the core <code>require</code> before it.
 </p>
 
 <h2>Customizing NanoMVC</h2>
 
 <p>
-To customize framework behavior, simply extend the <code>nmvc</code> class.
+Copy <code>sysfiles/&#8203;NanoMVC.php</code> to <code>myapp</code>, <code>myfiles</code>, or any other location.
+Edit the copy and replace the second <code>require</code> in <code>htdocs/index.php</code> with the path to your file.
+For example, if you put the copy directly in <code>myapp</code>:
 </p>
 
+<pre><code>require NMVC_BASEDIR . 'sysfiles' . DS
+  . 'NanoMVCCore.php';
+require NMVC_MYAPPDIR . 'NanoMVC.php';
+
+$nmvc = new nmvc();
+$nmvc-&gt;main();</code></pre>
+
 <p>
-For example:
+Your custom class must still be named <code>nmvc</code>.
+Load your copy in place of the standard file so that <code>nmvc</code> is defined only once:
 </p>
 
 <pre><code>class nmvc extends nmvc_core {
@@ -62,10 +72,8 @@ allows framework customization without modifying the core implementation.
 </p>
 
 <p>
-In most cases, NanoMVC updates only affect
-<code>NanoMVCCore.php</code>,
-while your customizations remain inside
-<code>NanoMVC.php</code>.
+The standard <code>sysfiles/&#8203;NanoMVC.php</code> remains part of the framework and may change during updates.
+Keep your customizations in your own copy.
 </p>
 
 <p>

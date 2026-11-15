@@ -103,6 +103,18 @@ Update any custom <code>_view()</code> override that relies on the former argume
 </p>
 
 <p>
+The framework core, <code>nmvc_core</code>, is abstract. The application starts an instance of <code>nmvc</code>, which extends it.
+The entry point loads <code>NanoMVCCore.php</code> before the file that defines <code>nmvc</code>.
+</p>
+
+<p>
+To customize the core, copy <code>sysfiles/&#8203;NanoMVC.php</code> to <code>myapp</code>, <code>myfiles</code>, or any other location.
+In <code>htdocs/index.php</code>, change the second <code>require</code> to load your copy.
+Keep the class name <code>nmvc</code> and leave <code>new nmvc()</code> unchanged.
+See <a href="/doc/customcore">Customize Core</a> for an example.
+</p>
+
+<p>
 You are not limited to these classes. Any NanoMVC class may be extended
 to add project-specific functionality while keeping your application code
 clean and reusable.
