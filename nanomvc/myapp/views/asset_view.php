@@ -23,6 +23,7 @@ Create a <code>config_generation.php</code> file and define your asset groups:
      ,'list' => [
         'style.css'
       ]
+     ,'mode' => 'always'
     ]
    ,'js-top' => [
       'name' => 'app.js'
@@ -34,12 +35,13 @@ Create a <code>config_generation.php</code> file and define your asset groups:
 ];</code></pre>
 
 <p>
-Each asset group contains two required fields:
+Each asset group supports these fields:
 </p>
 
 <ul>
-  <li><code>name</code> – Name of the generated bundled file.</li>
-  <li><code>list</code> – List of source files that will be merged.</li>
+  <li><code>name</code> – Required. Name of the generated bundled file.</li>
+  <li><code>list</code> – Required. List of source files that will be merged.</li>
+  <li><code>mode</code> – Optional. Overrides the generation mode for this group.</li>
 </ul>
 
 <p>
@@ -98,12 +100,18 @@ The plugin supports three generation modes:
 <ul>
   <li><code>no</code> – Never generate bundled assets. Always return the original source file list.</li>
   <li><code>yes</code> – Generate the bundled asset only if it does not already exist.</li>
-  <li><code>always</code> – Regenerate the bundled asset on every request.</li>
+  <li><code>always</code> – Regenerate the bundled asset on every <code>get()</code> call.</li>
 </ul>
+
+<p>
+If <code>mode</code> is omitted, the group uses the controller's <code>mode_tpl_&#8203;generation</code> value.
+With the examples above, <code>css-top</code> is rebuilt every time, while <code>js-top</code> is built only if <code>app.js</code> does not exist.
+</p>
 
 <p>
 In <code>no</code> mode, the configured source list is returned unchanged and source files are not read.
 The application is responsible for constructing URLs for the returned names.
+If source files and bundles have different URL prefixes, use <code>get_mode()</code> to choose the prefix for each group.
 </p>
 
 <h2>Generated File Structure</h2>
@@ -167,6 +175,15 @@ If generation is enabled, the bundled asset is created automatically when requir
   <li><code>$template</code> – Template name from the configuration.</li>
   <li><code>$key</code> – Asset group name.</li>
 </ul>
+
+<h3><code>get_mode(&#8203;string $template, &#8203;string $key): string</code></h3>
+
+<pre><code>$mode = $this->asset->get_mode(&#8203;'templ', 'css-top');</code></pre>
+
+<p>
+Returns the effective mode (<code>no</code>, <code>yes</code>, or <code>always</code>) for the specified template and asset group.
+It uses the loaded configuration without generating a bundle or reading source files.
+</p>
 
 <h2>Validation</h2>
 
