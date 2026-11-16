@@ -78,8 +78,24 @@ Your customized version will automatically take precedence over the system versi
 </p>
 
 <p>
-Both HTTP 404 (Not Found) and HTTP 410 (Gone) use the
-<code>notfound_view.php</code> template by default.
+Use <code>error_views</code> in <code>config_&#8203;application.php</code> to select HTML error views by name.
+</p>
+
+<pre><code>return [
+  'error_views' => [ 'error'    => 'errors/general'
+                    ,'notfound' => 'errors/missing'
+                   ]
+];</code></pre>
+
+<p>
+These names resolve to <code>errors/general_&#8203;view.php</code> and <code>errors/missing_&#8203;view.php</code>
+in the usual view directories. Each entry is optional and falls back to its default when omitted.
+The <code>notfound</code> entry applies to both HTTP 404 and HTTP 410.
+</p>
+
+<p>
+If the selected view fails, the handler discards its partial output and prints a minimal error response directly.
+When error details are enabled, the HTML response includes the original message, file and line, and the reason the view failed.
 </p>
 
 <h2>JSON Error Responses</h2>
@@ -88,6 +104,7 @@ Both HTTP 404 (Not Found) and HTTP 410 (Gone) use the
 If the GET parameter <code>is_ajax_json</code> is present in the request,
 NanoMVC automatically returns errors using <code>json_view.php</code>
 and sends the appropriate JSON content type header.
+If the JSON view fails, the handler returns the same error fields directly.
 </p>
 
 <p>
