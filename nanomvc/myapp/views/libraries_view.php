@@ -63,3 +63,19 @@ If not provided, the original name is used.
 You now have a variable <code>$output</code> in your view with the result of the
 <code>test()</code> method.
 </p>
+
+<p>
+The optional third argument lists the constructor arguments in order. For this
+example, declare <code>public NanoMVC_Library_Some $some;</code> in the controller.
+</p>
+
+<pre><code>// NanoMVC_Library_Some::__construct(string $hi, int $cnt, array $items)
+$this->load->library('Some', 'some', ['hello', 20, ['asd', 'dsa']]);</code></pre>
+
+<p>
+The inner array <code>['asd', 'dsa']</code> becomes the value of <code>$items</code>.
+If the constructor takes a single array <code>$config</code>, pass <code>[$config]</code>.
+The loader applies these arguments when it first creates the instance for an alias.
+Later calls with that alias reuse the instance. Declare another controller property to
+load a separate instance under a different alias.
+</p>
